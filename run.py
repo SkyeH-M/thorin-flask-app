@@ -1,4 +1,6 @@
 import os
+# import json library
+import json
 # importing flask class
 from flask import Flask, render_template
 
@@ -17,7 +19,14 @@ def index():
 
 @app.route("/about")
 def about():
-    return render_template("about.html", page_title="About")
+    data = []
+    # open json file as read only, assign contents to json_data
+    with open("data/company.json", "r") as json_data:
+        data = json.load(json_data)
+        # needs to be indented to ( point
+    return render_template("about.html",
+                           page_title="About",
+                           company=data)
 
 
 @app.route("/contact")
